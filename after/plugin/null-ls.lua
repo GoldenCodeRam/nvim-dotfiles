@@ -24,6 +24,9 @@ local sources = {
 
     -- Protobuf
     -- null_ls.builtins.formatting.buf,
+
+    -- PHP
+    null_ls.builtins.formatting.phpcsfixer,
 }
 
 null_ls.setup({ sources = sources })
