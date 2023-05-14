@@ -16,15 +16,15 @@ vim.g.mapleader = " " -- make sure to set `mapleader` before lazy so your mappin
 
 require("lazy").setup({
     {
-        "rose-pine/neovim",
-        name = "rose-pine",
+        "rebelot/kanagawa.nvim",
         lazy = false,
         priority = 1000,
         config = function()
-            require("rose-pine").setup({
-                disable_background = true,
+            require("kanagawa").setup({
+                transparent = true,
             })
-            vim.cmd("colorscheme rose-pine")
+            -- Lua
+            vim.cmd([[colorscheme kanagawa]])
         end,
     },
     {
@@ -131,6 +131,24 @@ require("lazy").setup({
         },
     },
     {
+        "jay-babu/mason-null-ls.nvim",
+        event = { "BufReadPre", "BufNewFile" },
+        dependencies = {
+            "williamboman/mason.nvim",
+            "jose-elias-alvarez/null-ls.nvim",
+        },
+    },
+    {
+        "folke/trouble.nvim",
+        lazy = true,
+        dependencies = {
+            "nvim-tree/nvim-web-devicons",
+        },
+        config = function()
+            require("trouble").setup({})
+        end,
+    },
+    {
         "nvim-telescope/telescope.nvim",
         tag = "0.1.1",
         -- or                              , branch = '0.1.1',
@@ -154,11 +172,11 @@ require("lazy").setup({
                 },
                 -- you can enable a preset for easier configuration
                 presets = {
-                    bottom_search = true, -- use a classic bottom cmdline for search
-                    command_palette = true, -- position the cmdline and popupmenu together
+                    bottom_search = true,         -- use a classic bottom cmdline for search
+                    command_palette = true,       -- position the cmdline and popupmenu together
                     long_message_to_split = true, -- long messages will be sent to a split
-                    inc_rename = false, -- enables an input dialog for inc-rename.nvim
-                    lsp_doc_border = false, -- add a border to hover docs and signature help
+                    inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+                    lsp_doc_border = false,       -- add a border to hover docs and signature help
                 },
             })
         end,
