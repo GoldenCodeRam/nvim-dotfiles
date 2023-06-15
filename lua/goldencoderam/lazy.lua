@@ -29,6 +29,10 @@ require("lazy").setup({
 		end,
 	},
 	{
+		"nvim-lualine/lualine.nvim",
+		lazy = false,
+	},
+	{
 		-- This I feel is needed, as I sometimes forget the keys. This might
 		-- be disabled later, but I like it.
 		"folke/which-key.nvim",
@@ -81,7 +85,7 @@ require("lazy").setup({
 		end,
 		config = function()
 			require("nvim-treesitter.configs").setup({
-				auto_install = true,
+				auto_install = false,
 				highlight = {
 					enable = true,
 				},
@@ -93,6 +97,14 @@ require("lazy").setup({
 		lazy = false,
 		config = function()
 			require("nvim-autopairs").setup({})
+		end,
+	},
+	{
+		"echasnovski/mini.surround",
+		version = "*",
+		lazy = false,
+		config = function()
+			require("mini.surround").setup({})
 		end,
 	},
 	{
@@ -186,12 +198,5 @@ require("lazy").setup({
 			-- This one is optional.
 			-- "rcarriga/nvim-notify",
 		},
-	},
-	{
-		"nvim-lualine/lualine.nvim",
-		lazy = false,
-		config = function()
-			require("lualine").setup({})
-		end,
 	},
 })
