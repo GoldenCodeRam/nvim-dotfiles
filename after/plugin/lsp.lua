@@ -11,10 +11,13 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, opts)
 local lsp_formatting = function(bufnr)
 	local ft = vim.bo[bufnr].filetype
 	local have_nls = package.loaded["null-ls"]
-		and (#require("null-ls.sources").get_available(ft, "NULL_LS_FORMATTING") > 0)
+		and (
+			#require("null-ls.sources").get_available(ft, "NULL_LS_FORMATTING")
+			> 0
+		)
 
 	vim.lsp.buf.format({
-        async = true,
+		async = true,
 		filter = function(client)
 			if have_nls then
 				return client.name == "null-ls"
@@ -36,13 +39,21 @@ local on_attach = function(client, bufnr)
 	vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
 	vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
 	vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, bufopts)
-	vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
+	vim.keymap.set(
+		"n",
+		"<leader>wr",
+		vim.lsp.buf.remove_workspace_folder,
+		bufopts
+	)
 	vim.keymap.set("n", "<leader>wl", function()
 		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 	end, bufopts)
 	vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, bufopts)
 	vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
+
+	bufopts.desc = "Code [A]ction"
 	vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
+
 	vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
 
 	bufopts.desc = "[F]ormat"
@@ -84,7 +95,8 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 require("mason-lspconfig").setup_handlers({
 	function(server_name)
 		if server_name == "html" then
-			capabilities.textDocument.completion.completionItem.snippetSupport = true
+			capabilities.textDocument.completion.completionItem.snippetSupport =
+				true
 
 			require("lspconfig")[server_name].setup({
 				on_attach = on_attach,
