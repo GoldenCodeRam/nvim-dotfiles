@@ -14,7 +14,7 @@ local lsp_formatting = function(bufnr)
 		and (#require("null-ls.sources").get_available(ft, "NULL_LS_FORMATTING") > 0)
 
 	vim.lsp.buf.format({
-        async = true,
+		async = true,
 		filter = function(client)
 			if have_nls then
 				return client.name == "null-ls"
@@ -103,6 +103,19 @@ require("mason-lspconfig").setup_handlers({
 							-- get the language server to recognize the `vim` global
 							globals = { "vim" },
 						},
+					},
+				},
+			})
+			return
+		end
+
+		if server_name == "volar" then
+			require("lspconfig")[server_name].setup({
+				on_attach = on_attach,
+				capabilities = capabilities,
+				init_options = {
+					typescript = {
+						tsdk = "/home/goldencoderam/.nvm/versions/node/v20.2.0/lib/node_modules/typescript/lib",
 					},
 				},
 			})
