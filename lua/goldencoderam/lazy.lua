@@ -29,6 +29,10 @@ require("lazy").setup({
 		end,
 	},
 	{
+		"nvim-lualine/lualine.nvim",
+		lazy = false,
+	},
+	{
 		-- This I feel is needed, as I sometimes forget the keys. This might
 		-- be disabled later, but I like it.
 		"folke/which-key.nvim",
@@ -104,6 +108,14 @@ require("lazy").setup({
 		lazy = false,
 		config = function()
 			require("nvim-autopairs").setup({})
+		end,
+	},
+	{
+		"echasnovski/mini.surround",
+		version = "*",
+		lazy = false,
+		config = function()
+			require("mini.surround").setup({})
 		end,
 	},
 	{
@@ -199,10 +211,21 @@ require("lazy").setup({
 		},
 	},
 	{
-		"nvim-lualine/lualine.nvim",
-		lazy = false,
+		"Exafunction/codeium.vim",
 		config = function()
-			require("lualine").setup({})
+			-- Change '<C-g>' here to any keycode you like.
+			vim.keymap.set("i", "<c-a>", function()
+				return vim.fn["codeium#Accept"]()
+			end, { expr = true })
+			vim.keymap.set("i", "<c-l>", function()
+				return vim.fn["codeium#CycleCompletions"](1)
+			end, { expr = true })
+			vim.keymap.set("i", "<c-h>", function()
+				return vim.fn["codeium#CycleCompletions"](-1)
+			end, { expr = true })
+			vim.keymap.set("i", "<c-x>", function()
+				return vim.fn["codeium#Clear"]()
+			end, { expr = true })
 		end,
 	},
 })
