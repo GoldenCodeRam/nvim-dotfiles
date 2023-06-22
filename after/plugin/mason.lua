@@ -5,15 +5,7 @@ require("mason-lspconfig").setup({
 	},
 })
 
--- Primary source of truth is `mason-null-ls`
-require("mason-null-ls").setup({
-	ensure_installed = {
-		"stylua",
-	},
-	automatic_installation = false,
-	handlers = {},
-})
-
+-- Primary source of information null-ls
 local null_ls = require("null-ls")
 null_ls.setup({
 	sources = {
@@ -24,4 +16,12 @@ null_ls.setup({
 			extra_filetypes = { "php" },
 		}),
 	},
+})
+
+require("mason-null-ls").setup({
+	ensure_installed = {
+		"stylua",
+	},
+	automatic_installation = false,
+	handlers = {},
 })
